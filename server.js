@@ -28,6 +28,7 @@ var nextRefresh = null;
 var REFRESH_INTERVAL = 4000;
 var MIN_POINT_THRESHOLD = 10;
 var MAX_RECENTLY_CRAWLED = 20;
+var CRAWL_INTERVAL = parseInt(process.env.CRAWL_INTERVAL || 3000, 10);
 
 var GH_TOKEN = process.env.GITHUB_TOKEN;
 assert.ok(GH_TOKEN);
@@ -146,7 +147,7 @@ MongoClient.connect(dbUrl, function(err, mongoDb) {
       return;
     }
     crawlNextRepo();
-    setInterval(crawlNextRepo, 3000);
+    setInterval(crawlNextRepo, CRAWL_INTERVAL);
     server.listen(port, host, function() {
       console.log(process.env.NODE_ENV + " listening at http://" + host + ":" + port + "/");
     });
