@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if error %}
+  <h2>Error crawling your repo</h2>
+  <p>{{ error }}</p>
+  {% else %}
+  <h2>Success</h2>
+  <p>updated statistics will appear shortly.</p>
+  {% endif %}
+  <a href="/">Back</a>
+{% endblock %}

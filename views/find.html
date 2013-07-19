@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if error %}
+  <h2>User not found</h2>
+  <p>There are 3 possible reasons for this:</p>
+  <ul>
+    <li>
+    The app has not finished crawling the repositories the user has contributed to.
+    </li>
+    <li>
+    The user has less than 10 points.
+    </li>
+    <li>
+    You spelled the case sensitive username incorrectly.
+    </li>
+  </ul>
+  {% else %}
+    <table>
+      <tr>
+        <th>Rank</th>
+        <th>User</th>
+        <th>Points</th>
+        <th>Total Contributions</th>
+      </tr>
+      {% for user in users %}
+      <tr{% if user.rank === rank %} style="background-color: yellow"{% endif %}>
+        <td>
+          {{ user.rank }}.
+        </td>
+        <td>
+          <img src="{{ user.avatar_url }}">
+          <a href="https://github.com/{{ user.login }}">{{ user.login }}</a>
+        </td>
+        <td>
+          {{ user.score|comma }}
+        </td>
+        <td>
+          {{ user.contribCount|comma }}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+  <a href="/">Back</a>
+{% endblock %}

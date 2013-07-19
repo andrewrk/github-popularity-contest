@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p>
+  {{ repoCount|comma }} repositories crawled.
+  {{ userCount|comma }} users found.
+  {{ contribCount|comma }} total contributions found.
+  </p>
+  <p>
+  Scoring system: For each repository, you get
+  <code>(YourContributionCount / TotalRepoContributions) * RepoStarCount</code>
+  </p>
+
+  <div style="float: left; width: 500px">
+    <h2>Top 100 Users</h2>
+    <ol>
+    {% for user in users %}
+      <li>
+      <img src="{{ user.avatar_url }}">
+      <a href="https://github.com/{{ user.login }}">{{ user.login }}</a> -
+      {{ user.score|comma }} points,
+      {{ user.contribCount|comma }} total contributions
+      </li>
+    {% endfor %}
+    </ol>
+  </div>
+
+  <div style="float: left; width: 320px">
+    <h2>Force Crawl</h2>
+    <p>Too impatient for the web app to get around to crawling your repo?</p>
+    <form action="/crawl" method="post">
+      <input type="text" name="repoId" placeholder="user/repo">
+      <button>Force It</button>
+    </form>
+
+    <h2>Where are you?</h2>
+    <form action="/find" method="get">
+      <input type="text" name="user" placeholder="username">
+      <button>Find me</button>
+    </form>
+
+    <h2>Recently Crawled</h2>
+    <ol>
+    {% for repo in recentlyCrawled %}
+    <li>
+    <a href="{{ repo.html_url }}">{{ repo.full_name }}</a> - 
+    {{ repo.watchers|comma }} stars,
+    {{ repo.totalContribs|comma }} contribs
+    </li>
+    {% endfor %}
+    </ol>
+  </div>
+{% endblock %}
