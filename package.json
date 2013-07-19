@@ -18,6 +18,7 @@
     "batch": "~0.4.0",
     "superagent": "~0.15.4",
     "consolidate": "~0.9.1",
-    "comma-it": "0.0.5"
+    "comma-it": "0.0.5",
+    "mongodb": "~1.3.12"
   }
 }
