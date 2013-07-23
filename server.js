@@ -25,7 +25,7 @@ var recentlyCrawled = [];
 var calculating = false;
 
 var nextRefresh = null;
-var REFRESH_INTERVAL = 4000;
+var REFRESH_INTERVAL = parseInt(process.env.REFRESH_INTERVAL || 4000, 10);
 var MIN_POINT_THRESHOLD = 10;
 var MAX_RECENTLY_CRAWLED = 20;
 var CRAWL_INTERVAL = parseInt(process.env.CRAWL_INTERVAL || 3000, 10);
