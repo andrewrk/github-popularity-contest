@@ -148,6 +148,7 @@ MongoClient.connect(dbUrl, function(err, mongoDb) {
     }
     crawlNextRepo();
     setInterval(crawlNextRepo, CRAWL_INTERVAL);
+    refreshCalculations();
     server.listen(port, host, function() {
       console.log(process.env.NODE_ENV + " listening at http://" + host + ":" + port + "/");
     });
