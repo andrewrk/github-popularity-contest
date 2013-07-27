@@ -312,6 +312,7 @@ function crawlRepo(repoId, cb) {
       watchers: repo.watchers,
       html_url: repo.html_url,
       totalContribs: totalContribs,
+      createdAt: new Date(repo.created_at),
     };
 
     if (totalContribs > 0 && repo.watchers > 1) {
