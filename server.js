@@ -252,7 +252,11 @@ function refreshCalculations() {
     for (var uid in newUserData) {
       newUserCount += 1;
       var user = newUserData[uid];
-      if (user.score > MIN_POINT_THRESHOLD) goodUsers.push(user);
+      if (user.score > MIN_POINT_THRESHOLD &&
+          user.login !== 'invalid-email-address')
+      {
+        goodUsers.push(user);
+      }
     }
     goodUsers.sort(function(a, b) {
       return b.score - a.score;
