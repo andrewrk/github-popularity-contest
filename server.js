@@ -26,7 +26,7 @@ var calculating = false;
 
 var nextRefresh = null;
 var REFRESH_INTERVAL = parseInt(process.env.REFRESH_INTERVAL || 4000, 10);
-var MIN_POINT_THRESHOLD = 10;
+var MIN_POINT_THRESHOLD = 20;
 var MAX_RECENTLY_CRAWLED = 20;
 var CRAWL_INTERVAL = parseInt(process.env.CRAWL_INTERVAL || 3000, 10);
 
@@ -100,13 +100,17 @@ app.get('/find', function(req, resp) {
     user = goodUsers[i];
     if (user.login === uid) {
       userIndex = i;
+      break;
     }
   }
   if (userIndex == null) {
     resp.render('find', {
       error: true,
     });
+    return;
   }
+
+  var foundUser = goodUsers[userIndex];
   var start = Math.max(userIndex - 10, 0);
   var end = Math.min(userIndex + 10, goodUsers.length - 1);
   var results = [];
@@ -118,6 +122,7 @@ app.get('/find', function(req, resp) {
   resp.render('find', {
     users: results,
     rank: userIndex + 1,
+    user: foundUser,
   });
 });
 
@@ -236,10 +241,12 @@ function refreshCalculations() {
         userData = contributor;
         userData.score = 0;
         userData.contribCount = 0;
+        userData.repos = {};
       }
 
       userData.score += ownership * repo.watchers;
       userData.contribCount += contributor.contributions;
+      userData.repos[repo.full_name] = ownership * repo.watchers;
 
       newUserData[contributor.login] = userData;
     }

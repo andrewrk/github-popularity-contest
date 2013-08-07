@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <div>
+    <a href="/">Back</a>
+  </div>
   {% if error %}
   <h2>User not found</h2>
   <p>There are 3 possible reasons for this:</p>
@@ -9,14 +12,15 @@
     The app has not finished crawling the repositories the user has contributed to.
     </li>
     <li>
-    The user has less than 10 points.
+    The user has less than 20 points.
     </li>
     <li>
     You spelled the case sensitive username incorrectly.
     </li>
   </ul>
   {% else %}
-    <table>
+    <a href="https://github.com/{{ user.login }}">{{ user.login }} on GitHub</a>
+    <table style="float: left">
       <tr>
         <th>Rank</th>
         <th>User</th>
@@ -30,7 +34,7 @@
         </td>
         <td>
           <img src="{{ user.avatar_url }}">
-          <a href="https://github.com/{{ user.login }}">{{ user.login }}</a>
+          <a href="find?user={{ user.login }}">{{ user.login }}</a>
         </td>
         <td>
           {{ user.score|comma }}
@@ -41,6 +45,12 @@
       </tr>
       {% endfor %}
     </table>
+    <div style="float: left;">
+      <script>
+        window.ghpcUserData = {{ user|json_encode|raw }};
+      </script>
+      <canvas id="graph" width="300" height="300"></canvas>
+    </div>
+    <script src="graph.js"></script>
   {% endif %}
-  <a href="/">Back</a>
 {% endblock %}

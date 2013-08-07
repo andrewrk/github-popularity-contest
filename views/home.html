@@ -2,13 +2,19 @@
 
 {% block content %}
   <p>
-  {{ repoCount|comma }} repositories crawled.
-  {{ userCount|comma }} users found.
+  {{ repoCount|comma }} repositories indexed.
+  {{ userCount|comma }} users indexed.
   {{ contribCount|comma }} total contributions found.
   </p>
   <p>
   Scoring system: For each repository, you get
   <code>(YourContributionCount / TotalRepoContributions) * RepoStarCount</code>
+  </p>
+  <p>
+  Minimum repository star threshold: 2
+  </p>
+  <p>
+  Minimum user points threshold: 20
   </p>
 
   <div style="float: left; width: 500px">
@@ -17,7 +23,7 @@
     {% for user in users %}
       <li>
       <img src="{{ user.avatar_url }}">
-      <a href="https://github.com/{{ user.login }}">{{ user.login }}</a> -
+      <a href="find?user={{ user.login }}">{{ user.login }}</a> -
       {{ user.score|comma }} points,
       {{ user.contribCount|comma }} total contributions
       </li>
