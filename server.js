@@ -326,7 +326,7 @@ function crawlRepo(repoId, cb) {
       createdAt: new Date(repo.created_at),
     };
 
-    if (totalContribs > 0 && repo.watchers > 1) {
+    if (totalContribs > 0 && repo.watchers >= 5) {
       reposCollection.update({full_name: repoId}, repoData, {upsert: true}, function(err) {
         if (err) {
           console.error("error adding repo to db:", err.stack);
