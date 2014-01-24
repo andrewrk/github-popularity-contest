@@ -5,12 +5,12 @@
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:superjoe30/github-popularity-contest.git"
+    "url": "git@github.com:andrewrk/github-popularity-contest.git"
   },
   "author": "Andrew Kelley <superjoe30@gmail.com>",
   "license": "TPL",
   "bugs": {
-    "url": "https://github.com/superjoe30/github-popularity-contest/issues"
+    "url": "https://github.com/andrewrk/github-popularity-contest/issues"
   },
   "dependencies": {
     "express": "~3.3.4",
